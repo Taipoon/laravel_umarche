@@ -31,11 +31,9 @@ class RedirectIfAuthenticated
                 return redirect(RouteServiceProvider::HOME);
             }
         }
-
-        return $next($request);
         */
 
-        if(Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.*')) {
+        if (Auth::guard(self::GUARD_USER)->check() && $request->routeIs('user.*')) {
             return redirect(RouteServiceProvider::HOME);
         }
         if (Auth::guard(self::GUARD_OWNER)->check() && $request->routeIs('owner.*')) {
@@ -44,5 +42,7 @@ class RedirectIfAuthenticated
         if (Auth::guard(self::GUARD_ADMIN)->check() && $request->routeIs('admin.*')) {
             return redirect(RouteServiceProvider::ADMIN_HOME);
         }
+        // handle メソッドの返り値としてこの return 文が必要
+        return $next($request);
     }
 }
