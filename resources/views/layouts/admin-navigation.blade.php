@@ -25,6 +25,10 @@
                         :active="request()->routeIs('admin.owners.create')">
                         オーナー作成
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.expired-owners.index')"
+                        :active="request()->routeIs('admin.expired-owners.index')">
+                        期限切れオーナー一覧
+                    </x-nav-link>
                 </div>
             </div>
 
