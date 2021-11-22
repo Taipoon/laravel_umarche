@@ -40,10 +40,6 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
 
-/*
- * require __DIR__ . 'auth.php';
- */
-
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->middleware('guest')
     ->name('register');
