@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
 {
@@ -19,7 +20,7 @@ class ShopController extends Controller
                 $shopsOwnerId = Shop::findOrFail($id)->owner->id;
                 $shopId = (int)$shopsOwnerId; // 文字列 --キャスト--> 整数
                 $ownerId = Auth::id(); // 整数型
-                if ($shopId == $ownerId) { // 認証済みユーザーが持つShopの情報でなければ
+                if ($shopId != $ownerId) { // 認証済みユーザーが持つShopの情報でなければ
                     abort(404); // Not Found(404)画面を表示
                 }
             }
@@ -34,16 +35,22 @@ class ShopController extends Controller
     {
         // Auth::id(); // 冗長な記述
         $shops = Shop::where('owner_id', Auth::id())->get();
-
         return view('owner.shops.index', compact('shops'));
     }
 
     public function edit($id)
     {
-        dd(Shop::findOrFail($id));
+        $shop = Shop::findOrFail($id);
+        return view('owner.shops.edit', compact('shop'));
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
+        $imageFile = $request->image;
+        if (!is_null($imageFile) && $imageFile->isValid()) {
+            Storage::putFile('public/shops', $imageFile);
+        }
+
+        return redirect()->route('owner.shops.index');
     }
 }

@@ -10,6 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @foreach ($shops as $shop)
+                        <?php echo $shop->id; ?>
                         <div class="w-1/2 p-4">
                             <a href="{{ route('owner.shops.edit', ['shop' => $shop->id]) }}">
                                 <div class="border rouded-md p-4">
