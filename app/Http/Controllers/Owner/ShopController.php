@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadImageRequest;
 use App\Models\Shop;
+use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,19 +52,20 @@ class ShopController extends Controller
         if (!is_null($imageFile) && $imageFile->isValid()) {
             // Storage::putFile('public/shops', $imageFile); // リサイズなしの場合
 
-            // ファイル名に一意なファイル名を付与
-            $fileName = uniqid(rand() . '_');
-            $extension = $imageFile->extension();
+            $fileNameToStore = ImageService::upload($imageFile, 'shops');
+            // // ファイル名に一意なファイル名を付与
+            // $fileName = uniqid(rand() . '_');
+            // $extension = $imageFile->extension();
 
-            // 拡張子と合わせて一意なファイル名を作成
-            $fileNameToStore = $fileName . '.' . $extension;
-            // 画像リサイズ処理
-            $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
+            // // 拡張子と合わせて一意なファイル名を作成
+            // $fileNameToStore = $fileName . '.' . $extension;
+            // // 画像リサイズ処理
+            // $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
 
-            // dd($imageFile, $resizedImage);
+            // // dd($imageFile, $resizedImage);
 
-            // 画像を保存
-            Storage::put('public/shops/' . $fileNameToStore, $resizedImage);
+            // // 画像を保存
+            // Storage::put('public/shops/' . $fileNameToStore, $resizedImage);
         }
 
 
