@@ -9,7 +9,7 @@ if ($type === 'shops') {
 @endphp
 
 
-<div class="p-2 mx-auto mb-4 text-center">
+<div>
     @if (empty($filename))
         <img src="{{ asset('images/no_image.jpg') }}" alt="画像はありません">
     @else
