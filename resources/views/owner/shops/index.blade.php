@@ -30,7 +30,7 @@
                                         {{ $shop->name }}
                                     </div>
                                     {{-- サムネイル画像 --}}
-                                    <x-shop-thumbnail :filename="$shop->filename" />
+                                    <x-thumbnail :filename="$shop->filename" type="shops" />
                                 </div>
                             </a>
                         </div>
