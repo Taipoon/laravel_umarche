@@ -7,6 +7,7 @@ use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use InterventionImage;
 
 class ShopController extends Controller
 {
@@ -33,7 +34,6 @@ class ShopController extends Controller
 
     public function index()
     {
-        // Auth::id(); // 冗長な記述
         $shops = Shop::where('owner_id', Auth::id())->get();
         return view('owner.shops.index', compact('shops'));
     }
@@ -48,8 +48,23 @@ class ShopController extends Controller
     {
         $imageFile = $request->image;
         if (!is_null($imageFile) && $imageFile->isValid()) {
-            Storage::putFile('public/shops', $imageFile);
+            // Storage::putFile('public/shops', $imageFile); // リサイズなしの場合
+
+            // ファイル名に一意なファイル名を付与
+            $fileName = uniqid(rand() . '_');
+            $extension = $imageFile->extension();
+
+            // 拡張子と合わせて一意なファイル名を作成
+            $fileNameToStore = $fileName . '.' . $extension;
+            // 画像リサイズ処理
+            $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
+
+            // dd($imageFile, $resizedImage);
+
+            // 画像を保存
+            Storage::put('public/shops/' . $fileNameToStore, $resizedImage);
         }
+
 
         return redirect()->route('owner.shops.index');
     }
