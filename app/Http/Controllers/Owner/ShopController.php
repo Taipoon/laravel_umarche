@@ -79,6 +79,7 @@ class ShopController extends Controller
         $shop->name = $request->name;
         $shop->information = $request->information;
         $shop->is_selling = $request->is_selling;
+        // 画像があれば、画像のファイル名を保存
         if (!is_null($imageFile) && $imageFile->isValid()) {
             $shop->filename = $fileNameToStore;
         }

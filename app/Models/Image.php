@@ -9,7 +9,7 @@ use App\Models\Owner;
 class Image extends Model
 {
     use HasFactory;
-    protected $fiklable = [
+    protected $fillable = [
         'owner_id',
         'filename'
     ];

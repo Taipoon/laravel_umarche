@@ -16,19 +16,21 @@
                             class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none mt-4 hover:bg-indigo-600 rounded text-lg"
                             onclick="location.href='{{ route('owner.images.create') }}'">新規登録する</button>
                     </div>
-                    @foreach ($images as $image)
-                        <div class="w-1/4 p-4">
-                            <a href="{{ route('owner.images.edit', ['image' => $image->id]) }}">
-                                <div class="border rouded-md p-4">
-                                    <div class="text-xl">
-                                        {{ $image->title }}
+                    <div class="flex flex-wrap">
+                        @foreach ($images as $image)
+                            <div class="w-1/2 md:w-1/3 p-4">
+                                <a href="{{ route('owner.images.edit', ['image' => $image->id]) }}">
+                                    <div class="border rouded-md p-4">
+                                        <div class="text-xl">
+                                            {{ $image->title }}
+                                        </div>
+                                        {{-- サムネイル画像 --}}
+                                        <x-thumbnail :filename="$image->filename" type="products" />
                                     </div>
-                                    {{-- サムネイル画像 --}}
-                                    <x-thumbnail :filename="$shop->filename" type="products" />
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                     {{ $images->links() }}
                 </div>
             </div>
