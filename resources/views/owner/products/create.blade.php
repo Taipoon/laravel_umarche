@@ -26,11 +26,14 @@
                       </optgroup>
                     @endforeach
                   </select>
-                  {{-- <label for="name" class="leading-7 text-sm text-gray-600">店名 ※必須</label>
-                  <input type="text" id="name" name="name" required value="{{ $shop->name }}"
-                    class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"> --}}
                 </div>
               </div>
+
+              <x-select-image name="image1" :images="$images" />
+              <x-select-image name="image2" :images="$images" />
+              <x-select-image name="image3" :images="$images" />
+              <x-select-image name="image4" :images="$images" />
+
               <div class="flex justify-around p-2 w-full">
                 <button type="button" onclick="location.href='{{ route('owner.products.index') }}'"
                   class="text-black bg-gray-200 border-0 py-2 px-8 focus:outline-none mt-4 hover:bg-gray-400 rounded text-lg">戻る</button>
@@ -43,4 +46,23 @@
       </div>
     </div>
   </div>
+  <script>
+    'use strict'
+    const images = document.querySelectorAll('.image');
+
+    images.forEach(image => {
+      image.addEventListener('click', function(e) {
+        const imageName = e.target.dataset.id.substr(0, 6);
+        const imageId = e.target.dataset.id.replace(imageName + '_', '');
+        const imageFile = e.target.dataset.file;
+        const imagePath = e.target.dataset.path;
+        const modal = e.target.dataset.modal;
+
+        // サムネイルと input type=hidden の value に設定
+        document.getElementById(imageName + '_thumbnail').src = imagePath + '/' + imageFile;
+        document.getElementById(imageName + '_hidden').value = imageId;
+        MicroModal.close(modal); // モーダルウィンドウを閉じる
+      })
+    })
+  </script>
 </x-app-layout>
