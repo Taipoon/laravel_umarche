@@ -25,4 +25,9 @@ class Product extends Model
         // belongsTo(親モデル名, 外部キー, 親モデルのキー)
         return $this->belongsTo(Image::class, 'image1', 'id');
     }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }
