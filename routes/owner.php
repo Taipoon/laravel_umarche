@@ -9,20 +9,11 @@ use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
 use App\Http\Controllers\Owner\ImageController;
+use App\Http\Controllers\Owner\ProductController;
 use App\Http\Controllers\Owner\ShopController;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('owner.welcome');
@@ -35,6 +26,8 @@ Route::prefix('shops')->middleware('auth:owners')->group(function () {
 });
 
 Route::resource('images', ImageController::class)->middleware('auth:owners')->except('show');
+
+Route::resource('products', ProductController::class)->middleware('auth:owners')->except('show');
 
 Route::get('/dashboard', function () {
     return view('owner.dashboard');

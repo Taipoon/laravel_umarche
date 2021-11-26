@@ -23,8 +23,9 @@ class CreateCategoriesTable extends Migration
         Schema::create('secondary_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('sort_order');
             $table->foreignId('primary_category_id')->constrained();
+            $table->integer('sort_order');
+
             $table->timestamps();
         });
     }
