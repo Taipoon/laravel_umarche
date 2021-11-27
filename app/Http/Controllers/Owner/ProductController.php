@@ -8,8 +8,12 @@ use App\Models\Owner;
 use App\Models\PrimaryCategory;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ProductController extends Controller
 {
@@ -61,7 +65,59 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'information' => 'required|string|max:1000',
+            'price' => 'required|integer',
+            'sort_order' => 'nullable|integer',
+            'quantity' => 'required|integer',
+            'shop_id' => 'required|exists:shops,id',
+            'category' => 'required|exists:secondary_categories,id',
+            'image1' => 'nullable|exists:images,id',
+            'image2' => 'nullable|exists:images,id',
+            'image3' => 'nullable|exists:images,id',
+            'image4' => 'nullable|exists:images,id',
+            'is_selling' => 'required',
+        ]);
+
+        // Shop にも同時に店舗情報を登録する
+        try {
+            DB::transaction(function () use ($request) {
+                $product = Product::create([
+                    'name' => $request->name,
+                    'information' => $request->information,
+                    'price' => $request->price,
+                    'sort_order' => $request->sort_order,
+                    'shop_id' => $request->shop_id,
+                    'secondary_category_id' => $request->category,
+                    'image1' => $request->image1,
+                    'image2' => $request->image2,
+                    'image3' => $request->image3,
+                    'image4' => $request->image4,
+                    'is_selling' => $request->is_selling,
+                ]);
+
+                Stock::create([
+                    'product_id' => $product->id,
+                    'type' => 1,
+                    'quantity' => $request->quantity,
+                ]);
+
+                // Image::create([
+                //     'owner_id' => Auth::id(),
+                // ]);
+            });
+        } catch (Throwable $e) {
+            Log::error($e);
+            throw $e;
+        }
+
+
+        return redirect()->route('owner.products.index')
+            ->with([
+                'message' => '商品登録しました。',
+                'status' => 'info'
+            ]);
     }
 
     public function show($id)
@@ -71,7 +127,8 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        //
+        $product = $id;
+        return view('owner.products.test', compact('product'));
     }
 
     public function update(Request $request, $id)
