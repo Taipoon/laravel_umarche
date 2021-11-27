@@ -50,12 +50,13 @@ if ($name === 'image5') {
   </div>
 </div>
 
-{{-- <a data-micromodal-trigger="{{ $modal }}" href="javascript:;">ファイルを選択</a> --}}
-
-<div class="flex justify-around items-center mb-4">
-  <a data-micromodal-trigger="{{ $modal }}" href="javascript:;" class="py-2 px-4 bg-gray-200">ファイルを選択</a>
-  <div class="w-1/4">
-    <img id="{{ $name }}_thumbnail" src="">
+<div class="w-1/2 mx-auto">
+  <div class="flex justify-around items-center mb-4">
+    <a data-micromodal-trigger="{{ $modal }}" href="javascript:;"
+      class="block py-2 px-4 bg-gray-200">ファイルを選択</a>
+    <div class="w-1/4">
+      <img id="{{ $name }}_thumbnail" src="">
+    </div>
   </div>
 </div>
 <input id="{{ $name }}_hidden" type="hidden" name="{{ $name }}" value="">
