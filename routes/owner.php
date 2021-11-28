@@ -34,13 +34,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:owners'])->name('dashboard');
 
 
-
+// オーナーアカウントの作成・削除は管理者側で行う
 // Route::get('/register', [RegisteredUserController::class, 'create'])
 //     ->middleware('guest')
 //     ->name('register');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest');
+// Route::post('/register', [RegisteredUserController::class, 'store'])
+//     ->middleware('guest');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware('guest')
