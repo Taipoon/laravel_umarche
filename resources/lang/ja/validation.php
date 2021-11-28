@@ -27,7 +27,7 @@ return [
     'between'              => [
         'array'   => ':attributeの項目は、:min個から:max個にしてください。',
         'file'    => ':attributeには、:min KBから:max KBまでのサイズのファイルを指定してください。',
-        'numeric' => ':attributeには、:minから、:maxまでの数字を指定してください。',
+        'numeric' => ':attributeには、:minから:maxまでの数字を指定してください。',
         'string'  => ':attributeは、:min文字から:max文字にしてください。',
     ],
     'boolean'              => ':attributeには、\'true\'か\'false\'を指定してください。',
@@ -143,5 +143,6 @@ return [
    */
     'attributes' => [
         'password' => 'パスワード',
+        'quantity' => '数量',
     ]
 ];
