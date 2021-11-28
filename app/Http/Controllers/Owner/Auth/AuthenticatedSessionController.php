@@ -49,6 +49,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/owner');
+        // redirect('/owner')はコメントアウトしており404が発生する
+        return redirect('/owner/login');
     }
 }
