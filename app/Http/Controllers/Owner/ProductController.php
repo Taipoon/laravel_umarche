@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Owner;
 
+use App\Constants\Common;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Image;
@@ -172,10 +173,10 @@ class ProductController extends Controller
           $product->is_selling = $request->is_selling;
           $product->save();
 
-          if ($request->type === '1') {
+          if ($request->type === Common::PRODUCT_LIST['add']) {
             $newQuantity = $request->quantity;
           }
-          if ($request->type === '2') {
+          if ($request->type === Common::PRODUCT_LIST['reduce']) {
             $newQuantity = $request->quantity * -1;
           }
           Stock::create([
