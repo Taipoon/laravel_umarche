@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestcontroller;
+use App\Http\Controllers\User\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
+Route::middleware('auth:users')->group(function () {
+    Route::get('/', [ItemController::class, 'index'])->name('items.index');
+});
+
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 })->middleware(['auth:users'])->name('dashboard');
@@ -29,4 +34,4 @@ Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServic
 Route::get('/serviceprovidertest', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
