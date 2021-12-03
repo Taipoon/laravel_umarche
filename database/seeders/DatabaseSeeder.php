@@ -2,26 +2,29 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->call([
-            AdminSeeder::class,
-            OwnerSeeder::class,
-            ShopSeeder::class,
-            ImageSeeder::class,
-            CategorySeeder::class,
-            // ProductSeeder::class,
-            // StockSeeder::class,
-            UserSeeder::class,
-        ]);
-    }
+  /**
+   * Seed the application's database.
+   *
+   * @return void
+   */
+  public function run()
+  {
+    $this->call([
+      AdminSeeder::class,
+      OwnerSeeder::class,
+      ShopSeeder::class,
+      ImageSeeder::class,
+      CategorySeeder::class,
+      // ProductSeeder::class,
+      // StockSeeder::class,
+      UserSeeder::class,
+    ]);
+    Stock::factory(100)->create();
+  }
 }

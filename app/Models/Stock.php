@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
-    use HasFactory;
+  // ::factory() が使えるようになる
+  use HasFactory;
 
-    protected $fillable = [
-        'product_id',
-        'type',
-        'quantity',
-    ];
+  protected $fillable = [
+    'product_id',
+    'type',
+    'quantity',
+  ];
 
-    // テーブル名を t_stock (トランザクション用テーブル) に変更
-    protected $table = 't_stocks';
+  // テーブル名を t_stock (トランザクション用テーブル) に変更
+  protected $table = 't_stocks';
 }
