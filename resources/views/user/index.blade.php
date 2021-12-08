@@ -13,16 +13,18 @@
           <x-flash-message status="session('status')" />
           <div class="flex flex-wrap">
             @foreach ($products as $product)
-              <div class="w-1/2 md:w-1/3 md:p-4 p-2">
-                <a href="">
-                  <div class="border rouded-md p-4">
-                    {{-- サムネイル画像 --}}
-                    <x-thumbnail filename="{{ $product->imageFirst->filename ?? '' }}" type="products" />
-                    <div class="text-gray-700">
-                      {{ $product->name }}
-                    </div>
-                  </div>
+              <div class="w-1/4 p-2 md-p-4">
+                <a class="block relative h-48 rounded overflow-hidden">
+                  <img alt="ecommerce" class="object-cover object-center w-full h-full block"
+                    src="{{ asset('storage/products/' . $product->imageFirst->filename) }}">
                 </a>
+                <div class="mt-4">
+                  <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ $product->category_name }}</h3>
+                  <h2 class="text-gray-900 title-font text-lg font-medium">{{ $product->name }}</h2>
+                  <p class="mt-1"><span
+                      class="text-sm">{{ number_format($product->price) }}円(税込)</span>
+                  </p>
+                </div>
               </div>
             @endforeach
           </div>
