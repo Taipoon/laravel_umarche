@@ -1,7 +1,19 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Validation Language Lines
+|--------------------------------------------------------------------------
+|
+| The following language lines contain the default error messages used by
+| the validator class. Some of these rules have multiple versions such
+| as the size rules. Feel free to tweak each of these messages here.
+|
+*/
+
 return [
     'accepted'             => ':attributeを承認してください。',
+    'accepted_if'          => 'The :attribute must be accepted when :other is :value.',
     'active_url'           => ':attributeは、有効なURLではありません。',
     'after'                => ':attributeには、:dateより後の日付を指定してください。',
     'after_or_equal'       => ':attributeには、:date以降の日付を指定してください。',
@@ -9,7 +21,7 @@ return [
     'alpha_dash'           => ':attributeには、英数字(\'A-Z\',\'a-z\',\'0-9\')とハイフンと下線(\'-\',\'_\')が使用できます。',
     'alpha_num'            => ':attributeには、英数字(\'A-Z\',\'a-z\',\'0-9\')が使用できます。',
     'array'                => ':attributeには、配列を指定してください。',
-    'attached'             => 'This :attribute is already attached.',
+    'attached'             => 'この:attributeはすでに添付されています。',
     'before'               => ':attributeには、:dateより前の日付を指定してください。',
     'before_or_equal'      => ':attributeには、:date以前の日付を指定してください。',
     'between'              => [
@@ -20,6 +32,7 @@ return [
     ],
     'boolean'              => ':attributeには、\'true\'か\'false\'を指定してください。',
     'confirmed'            => ':attributeと:attribute確認が一致しません。',
+    'current_password'     => 'The password is incorrect.',
     'date'                 => ':attributeは、正しい日付ではありません。',
     'date_equals'          => ':attributeは:dateに等しい日付でなければなりません。',
     'date_format'          => ':attributeの形式は、\':format\'と合いません。',
@@ -79,17 +92,18 @@ return [
         'numeric' => ':attributeには、:min以上の数字を指定してください。',
         'string'  => ':attributeは、:min文字以上にしてください。',
     ],
-    'multiple_of'          => 'The :attribute must be a multiple of :value',
+    'multiple_of'          => ':attributeは:valueの倍数でなければなりません',
     'not_in'               => '選択された:attributeは、有効ではありません。',
     'not_regex'            => ':attributeの形式が無効です。',
     'numeric'              => ':attributeには、数字を指定してください。',
     'password'             => 'パスワードが正しくありません。',
     'present'              => ':attributeが存在している必要があります。',
-    'prohibited'           => 'The :attribute field is prohibited.',
-    'prohibited_if'        => 'The :attribute field is prohibited when :other is :value.',
-    'prohibited_unless'    => 'The :attribute field is prohibited unless :other is in :values.',
+    'prohibited'           => ':attributeフィールドは禁止されています。',
+    'prohibited_if'        => ':attributeフィールドは、:otherが:valueの場合は禁止されています。',
+    'prohibited_unless'    => ':attributeフィールドは、:otherが:valuesでない限り禁止されています。',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
     'regex'                => ':attributeには、有効な正規表現を指定してください。',
-    'relatable'            => 'This :attribute may not be associated with this resource.',
+    'relatable'            => 'この:attributeきない場合に伴い資源です。',
     'required'             => ':attributeは、必ず指定してください。',
     'required_if'          => ':otherが:valueの場合、:attributeを指定してください。',
     'required_unless'      => ':otherが:values以外の場合、:attributeを指定してください。',
@@ -115,10 +129,5 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-    ],
-    'attributes'           => [
-        'name' => '名前',
-        'email' => 'メールアドレス',
-        'password' => 'パスワード'
     ],
 ];
