@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestController;
+use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\ItemController;
 
 /*
@@ -20,9 +21,13 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
-Route::middleware('auth:users')->group(function(){
-        Route::get('/', [ItemController::class, 'index'])->name('items.index');
-        Route::get('show/{item}', [ItemController::class, 'show'])->name('items.show');
+Route::middleware('auth:users')->group(function () {
+    Route::get('/', [ItemController::class, 'index'])->name('items.index');
+    Route::get('show/{item}', [ItemController::class, 'show'])->name('items.show');
+});
+
+Route::prefix('cart')->middleware('auth:users')->group(function () {
+    Route::post('/add', [CartController::class, 'add'])->name('cart.add');
 });
 
 // Route::get('/dashboard', function () {
@@ -34,4 +39,4 @@ Route::get('/component-test2', [ComponentTestController::class, 'showComponent2'
 Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServiceContainerTest']);
 Route::get('/serviceprovidertest', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
