@@ -20,9 +20,8 @@ class CartController extends Controller
         $totalPrice = 0;
 
         foreach ($products as $product) {
-            $totalPrice = $product->price * $product->pivot->quantity;
+            $totalPrice += $product->price * $product->pivot->quantity;
         }
-        // dd($product, $totalPrice);
         return view('user.cart', compact('products', 'totalPrice'));
     }
     public function add(Request $request)
@@ -79,7 +78,6 @@ class CartController extends Controller
                 'quantity' => $product->pivot->quantity * -1,
             ]);
         }
-        dd('test');
 
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -91,8 +89,11 @@ class CartController extends Controller
             'cancel_url' => route('user.cart.index'),
         ]);
 
-        $publicKey = env('STRIPE_PUBLIC_KEY');
+        // $publicKey = env('STRIPE_PUBLIC_KEY');
 
-        return view('user.checkout', compact('session', 'publicKey'));
+        // return view('user.checkout', compact('session', 'publicKey'));
+
+        // Stripeの決済画面に直接リダイレクトさせるコードを追加
+        return redirect($session->url, 303);
     }
 }
