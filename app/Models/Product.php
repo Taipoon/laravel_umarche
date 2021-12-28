@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\Common;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Shop;
@@ -95,5 +96,24 @@ class Product extends Model
                 'secondary_categories.name as category',
                 'image1.filename as filename'
             );
+    }
+
+    public function scopeSortOrder($query, $sortOrder)
+    {
+        if ($sortOrder === null || $sortOrder === Common::SORT_ORDER['recommend']) {
+            return $query->orderBy('sort_order', 'asc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['higherPrice']) {
+            return $query->orderBy('price', 'desc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['lowerPrice']) {
+            return $query->orderBy('price', 'asc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['later']) {
+            return $query->orderBy('products.created_at', 'desc');
+        }
+        if ($sortOrder === Common::SORT_ORDER['older']) {
+            return $query->orderBy('products.created_at', 'asc');
+        }
     }
 }
