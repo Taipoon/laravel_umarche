@@ -125,4 +125,22 @@ class Product extends Model
             return;
         }
     }
+
+    public function scopeSearchKeyword($query, $keyword)
+    {
+        if (!is_null($keyword)) {
+            // 全角スペースを半角に変換
+            $spaceConvert = mb_convert_kana($keyword, 's');
+            // 空白で区切る
+            $keyword = preg_split('/[\s]+/', $spaceConvert, -1, PREG_SPLIT_NO_EMPTY);
+
+            // 単語をループで曖昧検索
+            foreach ($keyword as $word) {
+                $query->where('products.name', 'like', '%' . $word . '%');
+            }
+            return $query;
+        } else {
+            return;
+        }
+    }
 }
