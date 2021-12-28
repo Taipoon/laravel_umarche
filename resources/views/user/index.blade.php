@@ -1,34 +1,52 @@
 <x-app-layout>
   <x-slot name="header">
-    <div class="flex justify-between items-center">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        商品一覧
-      </h2>
-      <div class="">
-        <form action="{{ route('user.items.index') }}" method="GET">
-          <div class="flex">
-            <div>
-              <span class="text-sm">表示順</span><br>
-              <select name="sort" class="mr-4" id="sort">
-                <option value="{{ \Constant::SORT_ORDER['recommend'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['recommend']) selected @endif>おすすめ順</option>
-                <option value="{{ \Constant::SORT_ORDER['higherPrice'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['higherPrice']) selected @endif>料金の高い順</option>
-                <option value="{{ \Constant::SORT_ORDER['lowerPrice'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['lowerPrice']) selected @endif>料金の低い順</option>
-                <option value="{{ \Constant::SORT_ORDER['later'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['later']) selected @endif>新しい順</option>
-                <option value="{{ \Constant::SORT_ORDER['older'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['older']) selected @endif>古い順</option>
-              </select>
-            </div>
-            <div>
-              <span class="text-sm">表示件数</span><br>
-              <select name="pagination" id="pagination">
-                <option value="20" @if (\Request::get('pagination') === '20') selected @endif>20件</option>
-                <option value="50" @if (\Request::get('pagination') === '50') selected @endif>50件</option>
-                <option value="100" @if (\Request::get('pagination') === '100') selected @endif>100件</option>
-              </select>
+
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+      商品一覧
+    </h2>
+    <form action="{{ route('user.items.index') }}" method="GET">
+      <div class="lg:flex lg:justify-between">
+        <div class="lg:flex items-center">
+          <select name="category" id="" class="mb-2 lg:mb-0 lg:mr-2">
+            <option value="0" @if (\Request::get('category') === '0') selected @endif>すべて</option>
+            @foreach ($categories as $category)
+              <optgroup label="{{ $category->name }}">
+                @foreach ($category->secondary as $secondary_category)
+                  <option value="{{ $secondary_category->id }}" @if ($secondary_category->id == \Request::get('category')) selected @endif>
+                    {{ $secondary_category->name }}</option>
+                @endforeach
+              </optgroup>
+            @endforeach
+          </select>
+          <div class="flex space-x-2 items-center">
+            <div><input name="keyword" type="text" placeholder="キーワードを入力" class="border border-gray-500 py-2"></div>
+            <div><button
+                class="ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">検索する</button>
             </div>
           </div>
-        </form>
+        </div>
+        <div class="flex">
+          <div>
+            <span class="text-sm">表示順</span><br>
+            <select name="sort" class="mr-4" id="sort">
+              <option value="{{ \Constant::SORT_ORDER['recommend'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['recommend']) selected @endif>おすすめ順</option>
+              <option value="{{ \Constant::SORT_ORDER['higherPrice'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['higherPrice']) selected @endif>料金の高い順</option>
+              <option value="{{ \Constant::SORT_ORDER['lowerPrice'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['lowerPrice']) selected @endif>料金の低い順</option>
+              <option value="{{ \Constant::SORT_ORDER['later'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['later']) selected @endif>新しい順</option>
+              <option value="{{ \Constant::SORT_ORDER['older'] }}" @if (\Request::get('sort') === \Constant::SORT_ORDER['older']) selected @endif>古い順</option>
+            </select>
+          </div>
+          <div>
+            <span class="text-sm">表示件数</span><br>
+            <select name="pagination" id="pagination">
+              <option value="20" @if (\Request::get('pagination') === '20') selected @endif>20件</option>
+              <option value="50" @if (\Request::get('pagination') === '50') selected @endif>50件</option>
+              <option value="100" @if (\Request::get('pagination') === '100') selected @endif>100件</option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
+    </form>
   </x-slot>
 
   <div class="py-12">
