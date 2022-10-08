@@ -13,8 +13,7 @@ class RenameAdminsTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::rename('admins', 'admin');
+        // Schema::rename('admins', 'admin');
     }
 
     /**
